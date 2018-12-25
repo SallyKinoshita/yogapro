@@ -15,9 +15,7 @@ Route::get('/', function () {
     return view('top');
 });
 
-Route::get('beginner', 'BeginnerController@index');
-
-Route::get('sample/model/{email_address?}', 'SampleController@model');
+//Route::get('sample/model/{email_address?}', 'SampleController@model');
 
 Auth::routes();
 
@@ -26,5 +24,3 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('users', 'UserController');
 
 Route::resource('programs', 'ProgramsController');
-
-Route::resource('posts', 'PostController');

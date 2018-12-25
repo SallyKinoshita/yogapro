@@ -30,6 +30,6 @@ class HomeController extends Controller
     {
         $user = $request->user();
         $programs = $user->load('programs');
-        return view('home', ['programs'=>$programs->programs]);
+        return view('programs.index', ['programs'=>$programs->programs]);
     }
 }

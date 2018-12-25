@@ -6,7 +6,8 @@
 
     <div class="panel panel-default">
         <div class="panel-heading">
-            プログラム一覧
+            <h3 class="panel-title">プログラム一覧</h3>
+            <a href="{{ url('/programs/create') }}" class="btn btn-primary btn-lg active" role="button" style="margin:10px;">新規作成</a>
         </div>
         <div class="panel-body">
             <table class="table table-striped program-table">

@@ -15,9 +15,16 @@ class CreateAsanasTable extends Migration
     {
         Schema::create('asanas', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name')->after('id');;
-            $table->string('six_category')->after('name');
+            $table->string('name',255);
+            $table->string('six_category',100);
+            $table->unsignedTinyInteger('posture');
+            $table->unsignedInteger('intensity');
+            $table->text('description')->nullable();
+            $table->string('image',255)->nullable();
+            $table->string('url',255)->nullable();
+            $table->unsignedTinyInteger('private_flg')->nullable()->default(0);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
