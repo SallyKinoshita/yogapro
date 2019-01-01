@@ -3,15 +3,19 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Program;
+use App\Models\Program;
 use App\Http\Requests;
 
 class ProgramsController extends Controller
 {
     public function index(Request $request)
     {
-        $programs = $request->user()->programs;
-        return view('programs.index')->with('programs', $programs);
+        $user = $request->user();
+        $programs = $user->load('programs');
+        return view('programs.index', ['programs'=>$programs->programs]);
+
+//        $programs = $request->user()->programs;
+//        return view('programs.index')->with('program', $programs);
     }
 
     public function create()

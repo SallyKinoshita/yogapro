@@ -13,6 +13,9 @@
             <table class="table table-striped program-table">
                 <thead>
                 <th>プログラム名</th>
+                <th>タグ</th>
+                <th>説明</th>
+                <th>時間</th>
                 <th>編集</th>
                 <th>削除</th>
                 </thead>
@@ -21,6 +24,15 @@
                     <tr>
                         <td class="table-text">
                             {{ link_to_route('programs.show', $program->name, $program->id) }}
+                        </td>
+                        <td class="table-text">
+                            {{ $program->tag }}
+                        </td>
+                        <td class="table-text">
+                            {{ $program->description }}
+                        </td>
+                        <td class="table-text">
+                            {{ $program->time }}
                         </td>
                         <td class="table-text">
                             {{ link_to_route('programs.edit', '編集', $program->id, ['class' => 'btn btn-sm btn-default']) }}
