@@ -13,31 +13,31 @@
             <div class="form-group">
                 {!! Form::label('name', 'アーサナ名', ['class' => 'col-sm-3 control-label']) !!}
                 <div class="col-sm-6">
-                    {!! Form::text('name', $asana->name, ['id' => 'asana-name', 'class' => 'form-control']) !!}
+                    {!! Form::text('name', $asana->name, ['id' => 'asana_name', 'class' => 'form-control']) !!}
                 </div>
             </div>
             <div class="form-group">
                 {!! Form::label('six_category', '6種別', ['class' => 'col-sm-3 control-label']) !!}
-                <div class="col-sm-6">
-                    {!! Form::text('six_category', $asana->six_category, ['id' => 'six_category', 'class' => 'form-control']) !!}
+                <div class="col-sm-2">
+                    {!! Form::select('six_category', config('six_category'), $asana->six_category, ['id' => 'six_category', 'class' => 'form-control']) !!}
                 </div>
             </div>
             <div class="form-group">
                 {!! Form::label('posture', '体位', ['class' => 'col-sm-3 control-label']) !!}
-                <div class="col-sm-6">
-                    {!! Form::text('posture', $asana->posture, ['id' => 'posture', 'class' => 'form-control']) !!}
+                <div class="col-sm-2">
+                    {!! Form::select('posture',config('posture'), $asana->posture, ['id' => 'posture', 'class' => 'form-control']) !!}
                 </div>
             </div>
             <div class="form-group">
                 {!! Form::label('intensity', '強度', ['class' => 'col-sm-3 control-label']) !!}
-                <div class="col-sm-6">
-                    {!! Form::text('intensity', $asana->intensity, ['id' => 'intensity', 'class' => 'form-control']) !!}
+                <div class="col-sm-2">
+                    {!! Form::select('intensity',config('intensity'), $asana->intensity, ['id' => 'intensity', 'class' => 'form-control']) !!}
                 </div>
             </div>
             <div class="form-group">
                 {!! Form::label('description', '説明', ['class' => 'col-sm-3 control-label']) !!}
                 <div class="col-sm-6">
-                    {!! Form::text('description', $asana->description, ['id' => 'description', 'class' => 'form-control']) !!}
+                    {!! Form::textarea('description', $asana->description, ['id' => 'description', 'class' => 'form-control', 'size' => '30x5']) !!}
                 </div>
             </div>
             <div class="form-group">

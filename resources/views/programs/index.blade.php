@@ -8,6 +8,7 @@
         <div class="panel-heading">
             <h3 class="panel-title">プログラム一覧</h3>
             <a href="{{ url('/programs/create') }}" class="btn btn-primary btn-lg active" role="button" style="margin:10px;">新規作成</a>
+            <a href="{{ url('/asanas/') }}" class="btn btn-success active" role="button" style="float:right;margin:10px;">アーサナ一覧を開く</a>
         </div>
         <div class="panel-body">
             <table class="table table-striped program-table">
