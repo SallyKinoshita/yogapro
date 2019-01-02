@@ -28,16 +28,16 @@
                                 {{ link_to_route('asanas.show', $asana->name, $asana->id) }}
                             </td>
                             <td class="table-text">
-                                {{ $asana->six_category }}
+                                {{ config('six_category')[$asana->six_category] }}
                             </td>
                             <td class="table-text">
-                                {{ $asana->posture }}
+                                {{ config('posture')[$asana->posture] }}
                             </td>
                             <td class="table-text">
-                                {{ $asana->intensity }}
+                                {{ config('intensity')[$asana->intensity] }}
                             </td>
                             <td class="table-text">
-                                {{ $asana->desctiption }}
+                                {{ $asana->description }}
                             </td>
                             <td class="table-text">
                                 {{ link_to_route('asanas.edit', '編集', $asana->id, ['class' => 'btn btn-sm btn-default']) }}

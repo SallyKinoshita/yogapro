@@ -13,13 +13,14 @@
                 アーサナ名: {{ $asana->name }}
             </div>
             <div>
-                6種別: {{ $asana->six_category }}
+                6種別: {{ config('six_category')[$asana->six_category] }}
+
             </div>
             <div>
-                体位: {{ $asana->posture }}
+                体位: {{ config('posture')[$asana->posture] }}
             </div>
             <div>
-                強度: {{ $asana->intensity }}
+                強度: {{ config('intensity')[$asana->intensity] }}
             </div>
             <div>
                 説明: {{ $asana->description }}
