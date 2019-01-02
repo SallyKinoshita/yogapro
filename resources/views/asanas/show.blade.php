@@ -14,7 +14,6 @@
             </div>
             <div>
                 6種別: {{ config('six_category')[$asana->six_category] }}
-
             </div>
             <div>
                 体位: {{ config('posture')[$asana->posture] }}

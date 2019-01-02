@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Program;
+use App\Models\Asana;
 use App\Http\Requests;
 
 class ProgramsController extends Controller
@@ -20,7 +21,8 @@ class ProgramsController extends Controller
 
     public function create()
     {
-        return view('programs.create')->with('program', new Program());
+        $asanas = Asana::all();
+        return view('programs.create')->with(['program' => new Program(),'asanas' => $asanas,]);
     }
 
     public function store(Request $request)
