@@ -61,7 +61,7 @@
                         {{--@endforeach--}}
                         </tbody>
                     </table>
-                    <div id="dropbox" ondragover="f_dragover(event)" ondrop="f_drop(event)" style="background-color: #0000F0;height:400px;">
+                    <div id="dropbox" dropzone="copy" ondragover="f_dragover(event)" ondrop="f_drop(event)" style="background-color: #0000F0;height:400px;">
                     </div>
                     {!! Form::close() !!}
                 </div>
@@ -107,8 +107,7 @@
                             </tbody>
                         </table>
                     </div>
-
-            </div>
+                </div>
             </div>
         </div>
     </div>

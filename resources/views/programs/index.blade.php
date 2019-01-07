@@ -52,3 +52,17 @@
     </div>
 
 @endsection
+
+@section('endbody')
+@parent
+{{--<script>--}}
+    // window.onload = function(){
+    //     alert('js');
+    // }
+    // $(function() {
+    //     alert('jquery');
+    // });
+{{--    <script src="{{ asset('js/script.js') }}" defer></script>--}}
+    // require('../../public/js/script');
+{{--// </script>--}}
+@stop
