@@ -19,4 +19,9 @@ class Program extends Model
     {
         return $this->belongsTo('App\Models\User');
     }
+
+    public function asanas()
+    {
+        return $this->belongsToMany('App\Models\Asana','program_asana','program_id','asana_id');
+    }
 }

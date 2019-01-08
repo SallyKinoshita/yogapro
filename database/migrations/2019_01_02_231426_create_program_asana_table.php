@@ -13,10 +13,13 @@ class CreateProgramAsanaTable extends Migration
      */
     public function up()
     {
-        Schema::table('program_asana', function (Blueprint $table) {
+        Schema::create('program_asana', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('program_id');
-            $table->integer('asana_id');
+            $table->unsignedInteger('program_id')->index();
+            $table->foreign('program_id')->references('id')->on('programs')->onDelete('cascade');
+            $table->unsignedInteger('order');
+            $table->unsignedInteger('asana_id')->index();
+            $table->foreign('asana_id')->references('id')->on('asanas')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -28,8 +31,6 @@ class CreateProgramAsanaTable extends Migration
      */
     public function down()
     {
-        Schema::table('program_asana', function (Blueprint $table) {
-            Schema::dropIfExists('program_asana');
-        });
+        Schema::dropIfExists('program_asana');
     }
 }

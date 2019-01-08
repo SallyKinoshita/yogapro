@@ -19,4 +19,10 @@ class Asana extends Model
 //    {
 //        return $this->belongsTo('App\Models\User');
 //    }
+
+    public function programs()
+    {
+        return $this->belongsToMany('App\Models\Program','program_asana','asana_id','program_id');
+    }
+
 }
