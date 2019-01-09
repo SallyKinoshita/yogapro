@@ -1,122 +1,29 @@
-$(function () {
 
-    // dropzoneの表示テキストを初期化
-    initDropzone();
+var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
 
-    // listテーブルのitem行が操作された時のリスナーを設定
-    items = document.getElementById('list').getElementsByClassName('item');
-
-    Array.prototype.forEach.call(items, function (item) {
-        $(item).on('dragstart', onDragStart);
-        $(item).on('dragend', onDragEnd);
+$('button[id*=add_]').click(function(){
+    let asana_id = this.id.replace('add_','');
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': CSRF_TOKEN
+        }
     });
-
-    // dropzoneのリスナーを設定
-    var $dropzone = $('#dropzone')
-        .on('dragover', onDragOver)
-        .on('dragenter', onDragEnter)
-        .on('dragleave', onDragLeave)
-        .on('drop', onDrop);
-
-
-    // dropzoneの表示テキストを指定
-    function initDropzone() {
-        $('#dropzone').text("ここにドロップできます。");
-    }
-
-    function startDropzone() {
-        $('#dropzone').text("ドラッグ中。");
-    }
-
-    function endDropzone(name) {
-        $('#dropzone').text(name + "をドロップしました。");
-    }
-
-    // ドロップ時の処理
-    // (1) ドロップされた行のidをPOSTする
-    // (2) 成功したらリダイレクトする
-    // (3) 失敗したらダイアログを表示する
-    function doAction(id) {
-        alert('id:'+id);
-        // $.ajax({
-        //     url: "<%=  sample_add_path  %>",
-        //     type: "POST",
-        //     data: {
-        //         id: id
-        //     },
-        //     dataType: "html",
-        //     success: function (data) {
-        //         //alert("success");
-        //
-        //         // dataにドラッグ＆ドロップした
-        //         // Userのid, nameがjson形式で
-        //         // 渡される
-        //         // console.log(data);
-        //         // {"id":1,"name":"Yamada Taro"}
-        //
-        //         // 暫定的にページを再読込
-        //         location.href = "<%= sample_index_path %>"
-        //     },
-        //     error: function (data) {
-        //         alert("errror");
-        //     }
-        // });
-    }
-
-    // ドラッグ＆ドロップ操作
-    function onDragStart(e) {
-        var id = e.originalEvent.target.id;
-        var name = e.originalEvent.target.cells[1].innerHTML;
-        e.originalEvent.dataTransfer.setData('id', id);
-        e.originalEvent.dataTransfer.setData('name', name);
-        addDraggingEffect();
-        startDropzone();
-    }
-
-    function onDragEnter(e) {
-        addEnterEffect();
-    }
-
-    function onDragLeave(e) {
-        removeEnterEffect();
-    }
-
-    function onDragOver(e) {
-        e.preventDefault();
-    }
-
-    function onDragEnd(e) {
-        resetAllEffect();
-    }
-
-    function onDrop(e) {
-        e.preventDefault();
-        var id = e.originalEvent.dataTransfer.getData('id');
-        var name = e.originalEvent.dataTransfer.getData('name');
-        endDropzone(name);
-        doAction(id);
-    }
-
-    function addDraggingEffect() {
-        $dropzone.addClass('dragging');
-    }
-
-    function removeDraggingEffect() {
-        $dropzone.removeClass('dragging');
-        initDropzone();
-    }
-
-    function addEnterEffect() {
-        $dropzone.addClass('dragenter');
-    }
-
-    function removeEnterEffect() {
-        $dropzone.removeClass('dragenter');
-    }
-
-    function resetAllEffect(e) {
-        removeDraggingEffect();
-        removeEnterEffect();
-    }
-
-});
+    $.ajax({
+        type:"POST",
+        url:"AddAsanaController",
+        data: {
+            program_id : program_id,//TODO 新規作成の場合は？更新の場合もどうやってこのID渡す？
+            asana_id : asana_id
+        },
+        // processData: false,
+        // contentType: false,
+        // async: false,
+        success : function(json) {
+            //TODO　取得したidをもとにテーブル再構成
+            console.log(json);
+        },
+        error : function(XMLHttpRequest, textStatus, errorThrown) {
+            alert("エラーが発生しました：" + textStatus + ":\n" + errorThrown);
+        }
+    });
+}

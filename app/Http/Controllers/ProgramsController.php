@@ -31,9 +31,10 @@ class ProgramsController extends Controller
         $program->user_id = $request->user()->id;
         $program->fill($request->all());
         $program->save();
-        if (is_array($request->asanas)) {
+        if (is_array($request->asanas)) {//TODO 違う単語にして、asanaとorderの連想配列でも良い
             $program->asanas()->detach(); //登録済みのアーサナを全て削除
-            $program->asanas()->attach($request->asanas); //改めて登録　TODO 順番は要らない？
+            $program->asanas()->attach($request->asanas); //改めて登録　TODO 順番は要らない？入れるとするとforeach回す
+//            $user->roles()->attach($roleId, ['expires' => $expires]);　こんな感じで追加カラムに挿入できる
         }
         return redirect()->route('programs.index');
     }
@@ -48,8 +49,9 @@ class ProgramsController extends Controller
     public function edit($id)
     {
         $program = Program::find($id);
-        $asanas = Asana::all();
-        return view('programs.edit')->with(['program' => $program,'asanas' => $asanas,]);
+        $all_asanas = Asana::all();
+        $program_asanas = $program->asanas()->orderBy('order')->get();
+        return view('programs.edit')->with(['program' => $program,'all_asanas' => $all_asanas,'program_asanas' => $program_asanas,]);
     }
 
     public function update(Request $request, $id)
