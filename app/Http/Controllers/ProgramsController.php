@@ -19,10 +19,13 @@ class ProgramsController extends Controller
 //        return view('programs.index')->with('program', $programs);
     }
 
-    public function create()
+    public function create(Request $request)
     {
-        $asanas = Asana::all();
-        return view('programs.create')->with(['program' => new Program(),'asanas' => $asanas,]);
+        $all_asanas = Asana::all();
+        $request->session()->forget('program_asanas');
+//        $program_asanas = $request->session()->get('program_asanas', array());
+//        return view('programs.create')->with(['program' => new Program(),'program_asanas' => $program_asanas,'all_asanas' => $all_asanas,]);
+        return view('programs.create')->with(['program' => new Program(),'all_asanas' => $all_asanas,]);
     }
 
     public function store(Request $request)
@@ -31,9 +34,10 @@ class ProgramsController extends Controller
         $program->user_id = $request->user()->id;
         $program->fill($request->all());
         $program->save();
-        if (is_array($request->asanas)) {//TODO 違う単語にして、asanaとorderの連想配列でも良い
+        \Log::debug($request->session()->all()); //TODO program_asanasあるように見える
+        if ($request->session()->program_asanas) {//TODO 違う単語にして、asanaとorderの連想配列でも良い ここでなぜか取れない
             $program->asanas()->detach(); //登録済みのアーサナを全て削除
-            $program->asanas()->attach($request->asanas); //改めて登録　TODO 順番は要らない？入れるとするとforeach回す
+            $program->asanas()->attach($request->session()->program_asanas); //改めて登録　TODO 順番は要らない？入れるとするとforeach回す
 //            $user->roles()->attach($roleId, ['expires' => $expires]);　こんな感じで追加カラムに挿入できる
         }
         return redirect()->route('programs.index');
@@ -51,6 +55,7 @@ class ProgramsController extends Controller
         $program = Program::find($id);
         $all_asanas = Asana::all();
         $program_asanas = $program->asanas()->orderBy('order')->get();
+        //TODO セッションにアーサナの配列を入れる
         return view('programs.edit')->with(['program' => $program,'all_asanas' => $all_asanas,'program_asanas' => $program_asanas,]);
     }
 

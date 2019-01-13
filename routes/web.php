@@ -25,4 +25,6 @@ Route::resource('users', 'UserController');
 
 Route::resource('programs', 'ProgramsController');
 
+Route::resource('programs/add_asana', 'Ajax\AddAsanaController');
+
 Route::resource('asanas', 'AsanasController');
