@@ -92,29 +92,29 @@
                                 </tr>
                             </thead>
                             <tbody id="all_asana_table">
-                            @foreach ($all_asanas as $asana)
-                                <tr>
-                                    <td>
-                                        {!! Form::button('+', ['type' => 'button', 'id' => 'add_'.$asana->id,
-                                            'class' => 'btn btn-default', 'style' => 'font-weight:bold;background-color:white;border:solid 1px #CCC;']) !!}
-                                    </td>
-                                    <td class="table-text">
-                                        {{$asana->name}}
-                                    </td>
-                                    <td class="table-text">
-                                        {{ config('six_category')[$asana->six_category] }}
-                                    </td>
-                                    <td class="table-text">
-                                        {{ config('posture')[$asana->posture] }}
-                                    </td>
-                                    <td class="table-text">
-                                        {{ config('intensity')[$asana->intensity] }}
-                                    </td>
-                                    <td class="table-text">
-                                        {{$asana->description}}
-                                    </td>
-                                </tr>
-                            @endforeach
+                                @foreach ($all_asanas as $asana)
+                                    <tr>
+                                        <td>
+                                            {!! Form::button('+', ['type' => 'button', 'id' => 'add_'.$asana->id,
+                                                'class' => 'btn btn-default', 'style' => 'font-weight:bold;background-color:white;border:solid 1px #CCC;']) !!}
+                                        </td>
+                                        <td class="table-text">
+                                            {{$asana->name}}
+                                        </td>
+                                        <td class="table-text">
+                                            {{ config('six_category')[$asana->six_category] }}
+                                        </td>
+                                        <td class="table-text">
+                                            {{ config('posture')[$asana->posture] }}
+                                        </td>
+                                        <td class="table-text">
+                                            {{ config('intensity')[$asana->intensity] }}
+                                        </td>
+                                        <td class="table-text">
+                                            {{$asana->description}}
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

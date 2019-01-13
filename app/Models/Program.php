@@ -12,7 +12,7 @@ class Program extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'user_id','name','tag','contents','description','time','private_flg',
+        'user_id','name','tag','description','time','private_flg',
     ];
 
     public function user()

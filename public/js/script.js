@@ -8,6 +8,7 @@ $('button[id*=add_]').click(function(){
             'X-CSRF-TOKEN': CSRF_TOKEN
         }
     });
+    // alert(asana_id);
     $.ajax({
         type:"POST",
         url:"add_asana",
@@ -18,6 +19,7 @@ $('button[id*=add_]').click(function(){
         // contentType: false,
         // async: false,
         success : function(json) {
+            // alert('success');
             // console.log(json);
             // console.log(all_asanas);
             // console.log(json.program_asanas);
@@ -30,6 +32,7 @@ $('button[id*=add_]').click(function(){
                 let index = Number(json.program_asanas[i])-1;
                 let description = "";
                 if(all_asanas[index]['description']!==null){
+                    // alert('null_index:'+index);
                     description = all_asanas[index]['description'];
                 }
                 // alert("index:"+index);
@@ -50,6 +53,69 @@ $('button[id*=add_]').click(function(){
                     json.intensity[all_asanas[index]['intensity']] +
                     '</td>' +
                     '<td class="table-text">' +
+                    // all_asanas[index]['description'] +
+                    description +
+                    '</td></tr>');
+            }
+        },
+        error : function(XMLHttpRequest, textStatus, errorThrown) {
+            alert("エラーが発生しました：" + textStatus + ":\n" + errorThrown);
+        }
+    });
+});
+$('button[id*=edit_]').click(function(){
+    let asana_id = this.id.replace('edit_','');
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': CSRF_TOKEN
+        }
+    });
+    // alert(asana_id);
+    $.ajax({
+        type:"POST",
+        url:"../add_asana",
+        data: {
+            asana_id : asana_id
+        },
+        // processData: false,
+        // contentType: false,
+        // async: false,
+        success : function(json) {
+            // alert('success');
+            // console.log(json);
+            // console.log(all_asanas);
+            // console.log(json.program_asanas);
+            // console.log(json.six_category);
+            // console.log(json.posture);
+            // console.log(json.intensity);
+            $('#program_asana_table').empty();
+            for(let i = 0;i<=json.program_asanas.length;i++){
+                // alert("loop:"+i);
+                let index = Number(json.program_asanas[i])-1;
+                let description = "";
+                if(all_asanas[index]['description']!==null){
+                    // alert('null_index:'+index);
+                    description = all_asanas[index]['description'];
+                }
+                // alert("index:"+index);
+                $('#program_asana_table').append('<tr>' +
+                    '<td class="table-text">' +
+                    (i+1) +
+                    '</td>' +
+                    '<td class="table-text">'+
+                    all_asanas[index]['name'] +
+                    '</td>' +
+                    '<td class="table-text">' +
+                    json.six_category[all_asanas[index]['six_category']] +
+                    '</td>' +
+                    '<td class="table-text">' +
+                    json.posture[all_asanas[index]['posture']] +
+                    '</td>' +
+                    '<td class="table-text">' +
+                    json.intensity[all_asanas[index]['intensity']] +
+                    '</td>' +
+                    '<td class="table-text">' +
+                    // all_asanas[index]['description'] +
                     description +
                     '</td></tr>');
             }

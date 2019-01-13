@@ -11,12 +11,12 @@ use Monolog\Logger;
 class AddAsanaController extends Controller
 {
     public function store(Request $request){
+//        \Log::debug('ajax.store');
 
         //TODO アーサナの順が入れ替わった時は、保存以外のポスト(アーサナ新規作成と検索)が走った時にsessionに入れる
 
-        //[$order => $asana_id]のつもり
         $program_asanas = $request->session()->pull('program_asanas', array());
-        $request->session()->forget('program_asanas');
+//        $request->session()->forget('program_asanas');
 //        \Log::debug($request->session()->all());
 //        \Log::debug($program_asanas);
         $program_asanas[] = $request->asana_id;
@@ -34,6 +34,7 @@ class AddAsanaController extends Controller
             'six_category' => $six_category,
             'posture' => $posture,
             'intensity' => $intensity,
+                'response' => true,
         ]);
     }
 }

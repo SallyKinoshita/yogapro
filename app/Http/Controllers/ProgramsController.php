@@ -46,16 +46,20 @@ class ProgramsController extends Controller
     public function show($id)
     {
         $program = Program::find($id);
-        $asanas = $program->asanas()->orderBy('order')->get();
+        $asanas = $program->asanas()->withPivot('order_id')->orderBy('order_id')->get();
         return view('programs.show')->with(['program' => $program,'asanas' => $asanas,]);
     }
 
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
         $program = Program::find($id);
         $all_asanas = Asana::all();
-        $program_asanas = $program->asanas()->orderBy('id')->get();
-        //TODO セッションにアーサナの配列を入れる
+        $program_asanas = $program->asanas()->withPivot('order_id')->orderBy('order_id')->get();//TODO これだとasana型になってしまう
+        $program_asanas_for_session = Array();
+        foreach ($program_asanas as $index => $value){
+            $program_asanas_for_session[$index] = $value['id'];
+        }
+        $request->session()->put('program_asanas', $program_asanas_for_session);
         return view('programs.edit')->with(['program' => $program,'all_asanas' => $all_asanas,'program_asanas' => $program_asanas,]);
     }
 
