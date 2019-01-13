@@ -34,12 +34,12 @@ class ProgramsController extends Controller
         $program->user_id = $request->user()->id;
         $program->fill($request->all());
         $program->save();
-        \Log::debug($request->session()->all()); //TODO program_asanasあるように見える
-        if ($request->session()->program_asanas) {//TODO 違う単語にして、asanaとorderの連想配列でも良い ここでなぜか取れない
+//        \Log::debug($request->session()->all());
+        if ($request->session()->get('program_asanas')) {
             $program->asanas()->detach(); //登録済みのアーサナを全て削除
-            $program->asanas()->attach($request->session()->program_asanas); //改めて登録　TODO 順番は要らない？入れるとするとforeach回す
-//            $user->roles()->attach($roleId, ['expires' => $expires]);　こんな感じで追加カラムに挿入できる
+            $program->asanas()->attach($request->session()->get('program_asanas'));
         }
+        $request->session()->forget('program_asanas');
         return redirect()->route('programs.index');
     }
 
@@ -54,7 +54,7 @@ class ProgramsController extends Controller
     {
         $program = Program::find($id);
         $all_asanas = Asana::all();
-        $program_asanas = $program->asanas()->orderBy('order')->get();
+        $program_asanas = $program->asanas()->orderBy('id')->get();
         //TODO セッションにアーサナの配列を入れる
         return view('programs.edit')->with(['program' => $program,'all_asanas' => $all_asanas,'program_asanas' => $program_asanas,]);
     }
@@ -64,11 +64,12 @@ class ProgramsController extends Controller
         $program = Program::find($id);
         $program->fill($request->all());
         $program->save();
-        if (is_array($request->asanas)) {
+//        \Log::debug($request->session()->all());
+        if ($request->session()->get('program_asanas')) {
             $program->asanas()->detach(); //登録済みのアーサナを全て削除
-            $program->asanas()->attach($request->asanas); //改めて登録　TODO 順番は要らない？
+            $program->asanas()->attach($request->session()->get('program_asanas'));
         }
-//         $program->asanas()->sync($request->asanas());
+        $request->session()->forget('program_asanas');
         return redirect()->route('programs.index');
     }
 
