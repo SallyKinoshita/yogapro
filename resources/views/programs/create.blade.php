@@ -40,31 +40,12 @@
                                 <th>体位</th>
                                 <th>強度</th>
                                 <th>説明</th>
+                                {{--<th>上へ移動</th>--}}
+                                {{--<th>下へ移動</th>--}}
+                                <th>削除</th>
                             </tr>
                         </thead>
                         <tbody id="program_asana_table">
-                        {{--@foreach ($program_asanas as $index => $asana_id)--}}
-                            {{--<tr>--}}
-                                {{--<td>--}}
-                                    {{--{{$index+1}}--}}
-                                {{--</td>--}}
-                                {{--<td class="table-text">--}}
-                                    {{--{{$all_asanas[$asana_id-1]['name']}}--}}
-                                {{--</td>--}}
-                                {{--<td class="table-text">--}}
-                                    {{--{{ config('six_category')[$all_asanas[$asana_id-1]['six_category']] }}--}}
-                                {{--</td>--}}
-                                {{--<td class="table-text">--}}
-                                    {{--{{ config('posture')[$all_asanas[$asana_id-1]['posture']] }}--}}
-                                {{--</td>--}}
-                                {{--<td class="table-text">--}}
-                                    {{--{{ config('intensity')[$all_asanas[$asana_id-1]['intensity']] }}--}}
-                                {{--</td>--}}
-                                {{--<td class="table-text">--}}
-                                    {{--{{$all_asanas[$asana_id-1]['description']}}--}}
-                                {{--</td>--}}
-                            {{--</tr>--}}
-                        {{--@endforeach--}}
                         </tbody>
                     </table>
                     {!! Form::close() !!}
@@ -83,7 +64,7 @@
                         <table class="table table-striped program-table">
                             <thead>
                                 <tr>
-                                    <th></th>
+                                    <th>追加</th>
                                     <th>アーサナ名</th>
                                     <th>6種別</th>
                                     <th>体位</th>
@@ -95,8 +76,7 @@
                                 @foreach ($all_asanas as $asana)
                                     <tr>
                                         <td>
-                                            {!! Form::button('+', ['type' => 'button', 'id' => 'add_'.$asana->id,
-                                                'class' => 'btn btn-default', 'style' => 'font-weight:bold;background-color:white;border:solid 1px #CCC;']) !!}
+                                            {!! Form::button('+', ['type' => 'button', 'id' => $asana->id,'class' => 'btn btn-default btn-row btn-add',]) !!}
                                         </td>
                                         <td class="table-text">
                                             {{$asana->name}}

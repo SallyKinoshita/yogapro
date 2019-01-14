@@ -5,18 +5,15 @@ namespace App\Http\Controllers\Ajax;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class AddAsanaController extends Controller
+class RemoveAsanaController extends Controller
 {
-    public function store(Request $request){
-//        \Log::debug('ajax.store');
-
-        //TODO アーサナの順が入れ替わった時は、保存以外のポスト(アーサナ新規作成と検索)が走った時にsessionに入れる
-
+    public function store(Request $request)
+    {
+        //        \Log::debug($request->session()->all());
         $program_asanas = $request->session()->pull('program_asanas', array());
-//        \Log::debug($request->session()->all());
-//        \Log::debug($program_asanas);
-        $program_asanas[] = $request->asana_id;
-//        \Log::debug($program_asanas);
+//                \Log::debug($program_asanas);
+        array_splice($program_asanas,$request->index,1);
+//                \Log::debug($program_asanas);
 
         // セッションへデータを保存する
         $request->session()->put('program_asanas', $program_asanas);

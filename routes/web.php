@@ -27,4 +27,8 @@ Route::resource('programs', 'ProgramsController');
 
 Route::resource('programs/add_asana', 'Ajax\AddAsanaController');
 
+Route::resource('programs/remove_asana', 'Ajax\RemoveAsanaController');
+
+Route::resource('programs/sort_asana', 'Ajax\SortAsanaController');
+
 Route::resource('asanas', 'AsanasController');

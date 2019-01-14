@@ -40,6 +40,7 @@
                             <th>体位</th>
                             <th>強度</th>
                             <th>説明</th>
+                            <th>削除</th>
                         </tr>
                         </thead>
                         <tbody id="program_asana_table">
@@ -63,6 +64,9 @@
                                     <td class="table-text">
                                         {{$asana->description}}
                                     </td>
+                                    <td class="table-text">
+                                        {!! Form::button('-', ['type' => 'button', 'id' => $index,'class' => 'btn btn-default btn-row btn-edit-remove',]) !!}
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -83,7 +87,7 @@
                         <table class="table table-striped program-table">
                             <thead>
                             <tr>
-                                <th></th>
+                                <th>追加</th>
                                 <th>アーサナ名</th>
                                 <th>6種別</th>
                                 <th>体位</th>
@@ -95,8 +99,7 @@
                                 @foreach ($all_asanas as $asana)
                                     <tr>
                                         <td>
-                                            {!! Form::button('+', ['type' => 'button', 'id' => 'edit_'.$asana->id,
-                                                'class' => 'btn btn-default', 'style' => 'font-weight:bold;background-color:white;border:solid 1px #CCC;']) !!}
+                                            {!! Form::button('+', ['type' => 'button', 'id' => $asana->id,'class' => 'btn btn-default btn-row btn-edit-add',]) !!}
                                         </td>
                                         <td class="table-text">
                                             {{$asana->name}}
