@@ -18,8 +18,9 @@
                     <th>体位</th>
                     <th>強度</th>
                     <th>説明</th>
-                    <th>編集</th>
-                    <th>削除</th>
+                    {{--TODO 権限を作るまでは編集・削除できない--}}
+                    {{--<th>編集</th>--}}
+                    {{--<th>削除</th>--}}
                 </thead>
                 <tbody>
                     @foreach ($asanas as $asana)
@@ -39,15 +40,15 @@
                             <td class="table-text">
                                 {{ $asana->description }}
                             </td>
-                            <td class="table-text">
-                                {{ link_to_route('asanas.edit', '編集', $asana->id, ['class' => 'btn btn-sm btn-default']) }}
-                            </td>
-                            <td class="table-text">
-                                {{ Form::open(['route' => ['asanas.destroy', $asana->id], 'method' => 'delete']) }}
-                                {{ Form::hidden('id', $asana->id) }}
-                                {{ Form::submit('削除', ['class' => 'btn btn-sm btn-default']) }}
-                                {{ Form::close() }}
-                            </td>
+                            {{--<td class="table-text">--}}
+                                {{--{{ link_to_route('asanas.edit', '編集', $asana->id, ['class' => 'btn btn-sm btn-default']) }}--}}
+                            {{--</td>--}}
+                            {{--<td class="table-text">--}}
+                                {{--{{ Form::open(['route' => ['asanas.destroy', $asana->id], 'method' => 'delete']) }}--}}
+                                {{--{{ Form::hidden('id', $asana->id) }}--}}
+                                {{--{{ Form::submit('削除', ['class' => 'btn btn-sm btn-default']) }}--}}
+                                {{--{{ Form::close() }}--}}
+                            {{--</td>--}}
                         </tr>
                     @endforeach
                 </tbody>
